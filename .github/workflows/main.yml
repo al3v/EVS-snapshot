@@ -7,7 +7,7 @@ env:
   PROJECT_ID: "da9c89f493fb4554afab5f67a07ba4fd"
   REGION: "tr-west-1"
   DATA_VOLUME_ID: "1e094019-0512-448d-be9b-9d5162f3067c"
-  SNAPSHOT_NAME: "levy-snapshot"
+  SNAPSHOT_NAME: "levy-snapshot2"
 
 jobs:
   build:
@@ -20,7 +20,6 @@ jobs:
       - name: Set up Huawei Cloud CLI
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-pip
           curl -LO "https://ap-southeast-3-hwcloudcli.obs.ap-southeast-3.myhuaweicloud.com/cli/latest/huaweicloud-cli-linux-amd64.tar.gz"
           tar -zxvf huaweicloud-cli-linux-amd64.tar.gz
           sudo mv $(pwd)/hcloud /usr/local/bin/
