@@ -24,6 +24,13 @@ jobs:
           yes y | sudo bash ./hcloud_install.sh -y
           yes y | sudo hcloud update || echo "KooCLI is already up-to-date."
 
+      - name: Print Environment Variables (Debugging)
+        run: |
+          echo "REGION: ${{ env.REGION }}"
+          echo "PROJECT_ID: ${{ env.PROJECT_ID }}"
+          echo "DATA_VOLUME_ID: ${{ env.DATA_VOLUME_ID }}"
+          echo "SNAPSHOT_NAME: ${{ env.SNAPSHOT_NAME }}"
+
       - name: Create EVS Snapshot
         id: create-snapshot
         run: |
