@@ -1,0 +1,49 @@
+name: Huawei EVS Create Snapshot - PROD
+
+on:
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: "da9c89f493fb4554afab5f67a07ba4fd"
+  REGION: "tr-west-1"
+  DATA_VOLUME_ID: "1e094019-0512-448d-be9b-9d5162f3067c"
+  SNAPSHOT_NAME: "levy-snapshot"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Huawei Cloud KooCLI
+        id: build-image
+        run: |
+          sudo curl -sSL https://eu-west-101-apiexplorer-cli.obs.eu-west-101.myhuaweicloud.eu/cli/latest/hcloud_install.sh -o ./hcloud_install.sh
+          sudo bash ./hcloud_install.sh -y
+
+      - name: Check KooCLI Version
+        id: check-version
+        run: |
+          CURRENT_VERSION=$(hcloud version 2>&1 | grep -oP 'KooCLI Version \K[0-9.]+')
+          echo "Current KooCLI Version: $CURRENT_VERSION"
+          LATEST_VERSION=$(curl -sSL https://eu-west-101-apiexplorer-cli.obs.eu-west-101.myhuaweicloud.eu/cli/latest/version | grep -oP 'KooCLI Version \K[0-9.]+')
+          echo "Latest KooCLI Version: $LATEST_VERSION"
+          if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
+            echo "KooCLI is not up-to-date. Updating to version $LATEST_VERSION..."
+            sudo hcloud update
+          else
+            echo "KooCLI is up-to-date."
+          fi
+
+      - name: Create EVS Snapshot
+        id: create-snapshot
+        run: |
+          sudo hcloud EVS CreateSnapshot \
+            --cli-region="${{ env.REGION }}" \
+            --project_id="${{ env.PROJECT_ID }}" \
+            --cli-access-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_ACCESS_KEY_ID_BINBIN_PROD }}" \
+            --cli-secret-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_SECRET_KEY_BINBIN_PROD }}" \
+            --snapshot.volume_id="${{ env.DATA_VOLUME_ID }}" \
+            --snapshot.name="${{ env.SNAPSHOT_NAME }}"
