@@ -21,13 +21,13 @@ jobs:
         id: install-koocli
         run: |
           sudo curl -sSL https://eu-west-101-apiexplorer-cli.obs.eu-west-101.myhuaweicloud.eu/cli/latest/hcloud_install.sh -o ./hcloud_install.sh
-          echo "y" | sudo bash ./hcloud_install.sh -y
-          echo "y" | sudo hcloud update || echo "KooCLI is already up-to-date."
+          yes y | sudo bash ./hcloud_install.sh -y
+          yes y | sudo hcloud update || echo "KooCLI is already up-to-date."
 
       - name: Create EVS Snapshot
         id: create-snapshot
         run: |
-          echo "y" | sudo hcloud EVS CinderCreateSnapshot \
+          yes y | sudo hcloud EVS CinderCreateSnapshot \
             --cli-region="${{ env.REGION }}" \
             --project_id="${{ env.PROJECT_ID }}" \
             --cli-access-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_ACCESS_KEY_ID_BINBIN_PROD }}" \
