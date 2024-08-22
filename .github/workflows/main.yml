@@ -25,14 +25,13 @@ jobs:
           yes y | sudo hcloud update || echo "KooCLI is already up-to-date."
 
       - name: Create EVS Snapshot
-      id: create-snapshot
-      run: |
-        yes y | sudo hcloud EVS CinderCreateSnapshot \
-          --cli-region="${{ env.REGION }}" \
-          --project_id="${{ env.PROJECT_ID }}" \
-          --cli-access-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_ACCESS_KEY_ID_BINBIN_PROD }}" \
-          --cli-secret-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_SECRET_KEY_BINBIN_PROD }}" \
-          --snapshot.volume_id="${{ env.DATA_VOLUME_ID }}" \
-          --snapshot.name="${{ env.SNAPSHOT_NAME }}" \
-          --debug
-
+        id: create-snapshot
+        run: |
+          yes y | sudo hcloud EVS CinderCreateSnapshot \
+            --cli-region="${{ env.REGION }}" \
+            --project_id="${{ env.PROJECT_ID }}" \
+            --cli-access-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_ACCESS_KEY_ID_BINBIN_PROD }}" \
+            --cli-secret-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_SECRET_KEY_BINBIN_PROD }}" \
+            --snapshot.volume_id="${{ env.DATA_VOLUME_ID }}" \
+            --snapshot.name="${{ env.SNAPSHOT_NAME }}" \
+            --debug
