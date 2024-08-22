@@ -41,7 +41,7 @@ jobs:
       - name: Create EVS Snapshot
         id: create-snapshot
         run: |
-          yes y | sudo hcloud EVS CinderCreateSnapshot \
+          yes y | sudo hcloud EVS CreateSnapshot \
             --cli-region="${{ env.REGION }}" \
             --project_id="${{ env.PROJECT_ID }}" \
             --cli-access-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_ACCESS_KEY_ID_BINBIN_PROD }}" \
