@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_ID: "da9c89f493fb4554afab5f67a07ba4fd"
+  PROJECT_ID: "da9c89f43fb4554afab5fa4fd"
   REGION: "tr-west-1"
-  DATA_VOLUME_ID: "1e094019-0512-448d-be9b-9d5162f3067c"
-  SNAPSHOT_NAME: "levy-snapshot2"
+  DATA_VOLUME_ID: "1e094019-0512-448d-be9b-9d2f3c"
+  SNAPSHOT_NAME: "levy-snapshot"
 
 jobs:
   build:
