@@ -17,25 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Huawei Cloud KooCLI
-        id: build-image
+      - name: Install or Update Huawei Cloud KooCLI
+        id: install-koocli
         run: |
           sudo curl -sSL https://eu-west-101-apiexplorer-cli.obs.eu-west-101.myhuaweicloud.eu/cli/latest/hcloud_install.sh -o ./hcloud_install.sh
           sudo bash ./hcloud_install.sh -y
-
-      - name: Check KooCLI Version
-        id: check-version
-        run: |
-          CURRENT_VERSION=$(hcloud version 2>&1 | grep -oP 'KooCLI Version \K[0-9.]+')
-          echo "Current KooCLI Version: $CURRENT_VERSION"
-          LATEST_VERSION=$(curl -sSL https://eu-west-101-apiexplorer-cli.obs.eu-west-101.myhuaweicloud.eu/cli/latest/version | grep -oP 'KooCLI Version \K[0-9.]+')
-          echo "Latest KooCLI Version: $LATEST_VERSION"
-          if [ "$CURRENT_VERSION" != "$LATEST_VERSION" ]; then
-            echo "KooCLI is not up-to-date. Updating to version $LATEST_VERSION..."
-            sudo hcloud update
-          else
-            echo "KooCLI is up-to-date."
-          fi
+          sudo hcloud update || echo "KooCLI is already up-to-date."
 
       - name: Create EVS Snapshot
         id: create-snapshot
