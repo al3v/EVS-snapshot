@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_ID: "da9c89f43fb4554afab5fa4fd"
+  PROJECT_ID: "da9c89f493fb4554afab5f67a07ba4fd"
   REGION: "tr-west-1"
-  DATA_VOLUME_ID: "1e094019-0512-448d-be9b-9d2f3c"
+  DATA_VOLUME_ID: "0bbf7243-7c5c-4593-9306-8896b5ddc731"
   SNAPSHOT_NAME: "levy-snapshot"
 
 jobs:
@@ -40,3 +40,4 @@ jobs:
             --cli-secret-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_SECRET_KEY_BINBIN_PROD }}" \
             --snapshot.volume_id="${{ env.DATA_VOLUME_ID }}" \
             --snapshot.name="${{ env.SNAPSHOT_NAME }}"
+            --force
