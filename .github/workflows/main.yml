@@ -40,4 +40,4 @@ jobs:
             --cli-secret-key="${{ secrets.HUAWEI_PLATFORM_OPERATIONS_SECRET_KEY_BINBIN_PROD }}" \
             --snapshot.volume_id="${{ env.DATA_VOLUME_ID }}" \
             --snapshot.name="${{ env.SNAPSHOT_NAME }}" \
-            --force
+            --force=true
